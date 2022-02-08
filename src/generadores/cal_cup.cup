@@ -1,0 +1,25 @@
+package com.mycompany.calculadora;
+import java_cup.runtime.*;
+parser code
+{::}
+terminal PLUS, MINUS, TIMES, DIV, LPAREN, RPAREN;
+terminal Integer NUMBER;
+non terminal root;
+non terminal Integer expr;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIV;
+start with root;
+root ::= expr:e {: System.out.println(" = "+e+";"); :}
+;
+expr ::= NUMBER:n
+{: RESULT=new Integer(n.intValue()); :}
+| expr:l PLUS expr:r
+{: RESULT=new Integer(l.intValue() + r.intValue()); :}
+| expr:l MINUS expr:r
+{: RESULT=new Integer(l.intValue() - r.intValue()); :}
+| expr:l TIMES expr:r
+{: RESULT=new Integer(l.intValue() * r.intValue()); :}
+| expr:l DIV expr:r
+{: RESULT=new Integer(l.intValue() / r.intValue()); :}
+| LPAREN expr:e RPAREN
+{: RESULT=e; :};
